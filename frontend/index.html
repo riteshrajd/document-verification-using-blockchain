@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustLock | Blockchain Document Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="background-elements">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+      <header>
+        <h1>Document Verification</h1>
+        <p class="subtitle">Immutable Document Verification via Blockchain</p>
+        <button id="connectBtn" class="btn-primary">Connect Wallet</button>
+        <p id="walletAddress" class="wallet-status"></p>
+      </header>
+
+      <div class="panels">
+        <!-- Register Panel -->
+        <section class="glass-panel" id="registerPanel">
+          <h2>Register Document</h2>
+          <p class="desc">Securely hash and register your document's existence on the blockchain.</p>
+          
+          <div class="file-drop-area" id="registerDropZone">
+            <input type="file" id="registerFileInput" hidden />
+            <div class="drop-text">
+              <span class="icon">📄</span>
+              <p>Drag & Drop or <strong>Click to Upload</strong></p>
+            </div>
+            <p id="registerFileName" class="file-name"></p>
+          </div>
+
+          <button id="registerBtn" class="btn-action" disabled>Register Hash</button>
+          <div id="registerResult" class="result-message"></div>
+        </section>
+
+        <!-- Verify Panel -->
+        <section class="glass-panel" id="verifyPanel">
+          <h2>Verify Document</h2>
+          <p class="desc">Check if a document has been registered and verify its authenticity.</p>
+          
+          <div class="file-drop-area" id="verifyDropZone">
+            <input type="file" id="verifyFileInput" hidden />
+            <div class="drop-text">
+              <span class="icon">🔍</span>
+              <p>Drag & Drop or <strong>Click to Upload</strong></p>
+            </div>
+            <p id="verifyFileName" class="file-name"></p>
+          </div>
+
+          <button id="verifyBtn" class="btn-action" disabled>Verify Hash</button>
+          <div id="verifyResult" class="result-message"></div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
