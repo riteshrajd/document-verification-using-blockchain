@@ -31,6 +31,11 @@ Then import an account using a private key from Ganache.
 ```bash
 npx hardhat run scripts/deploy.js --network ganache
 ```
+If `hre.ethers.getContractFactory` throws undefined, run:
+```bash
+  npm install --save-dev hardhat@^2.22.0 @nomicfoundation/hardhat-ethers@^3.0.8
+```
+  Hardhat v3 ships with `hardhat-ethers@^4.x` which breaks the ethers API.
 
 ### 5. Start the frontend
 ```bash
