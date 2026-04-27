@@ -1,7 +1,6 @@
 import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, CONTRACT_ABI } from './ContractInfo.js';
 
-// DOM Elements
 const connectBtn = document.getElementById('connectBtn');
 const walletAddress = document.getElementById('walletAddress');
 
@@ -52,7 +51,6 @@ async function connectWallet() {
 
 connectBtn.addEventListener('click', connectWallet);
 
-// Hash File using Web Crypto API
 async function hashFile(file) {
   const arrayBuffer = await file.arrayBuffer();
   const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
@@ -61,7 +59,6 @@ async function hashFile(file) {
   return `0x${hashHex}`;
 }
 
-// Setup Drag & Drop Handlers
 function setupDropZone(dropZone, fileInput, fileNameDisplay, type) {
   dropZone.addEventListener('click', () => fileInput.click());
 
@@ -115,7 +112,7 @@ async function handleFile(file, fileNameDisplay, type) {
 setupDropZone(registerDropZone, registerFileInput, registerFileName, 'register');
 setupDropZone(verifyDropZone, verifyFileInput, verifyFileName, 'verify');
 
-// Register Document
+
 registerBtn.addEventListener('click', async () => {
   if (!contract) return alert("Please connect your wallet first.");
   if (!registerFileHash) return;
@@ -124,21 +121,20 @@ registerBtn.addEventListener('click', async () => {
   registerBtn.textContent = 'Registering...';
   
   try {
-    // 1. Check if the document already exists FIRST
+    
     const existingDoc = await contract.documents(registerFileHash);
     
-    // existingDoc.exists will be true if it's already on the blockchain
     if (existingDoc.exists) {
       const date = new Date(Number(existingDoc.timestamp) * 1000).toLocaleString();
       showMessage(
         registerResult, 
-        `ℹ️ Document is already registered!\nOwner: ${existingDoc.owner}\nDate: ${date}`, 
+        `Document is already registered!\nOwner: ${existingDoc.owner}\nDate: ${date}`, 
         'success'
       );
-      return; // Stop execution here, don't try to register again
+      return; 
     }
 
-    // 2. If it doesn't exist, proceed with registration
+    
     const tx = await contract.registerDocument(registerFileHash);
     showMessage(registerResult, `Transaction Pending... Please confirm in your wallet.`, 'success');
     
@@ -169,12 +165,12 @@ verifyBtn.addEventListener('click', async () => {
     
     showMessage(
       verifyResult, 
-      `✅ Document is authentic!\nRegistered by: ${owner}\nOn: ${date}`, 
+      `Document is authentic!\nRegistered by: ${owner}\nOn: ${date}`, 
       'success'
     );
   } catch (error) {
     console.error(error);
-    showMessage(verifyResult, `❌ Document not found in registry.`, 'error');
+    showMessage(verifyResult, `Document not found in registry.`, 'error');
   } finally {
     verifyBtn.disabled = false;
     verifyBtn.textContent = 'Verify Hash';
